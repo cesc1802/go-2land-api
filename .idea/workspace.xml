@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a7183317-34db-4cfa-b16d-cdb5f226ee39" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="/usr/local/go" />
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="1fezJA5gO7fvkUlqLtkpaNObG9S" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="go build go-rest-api" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="go-rest-api" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="go-rest-api" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build go-rest-api" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="592" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1596608175251">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state x="592" y="322" key="#com.intellij.fileTypes.FileTypeChooser/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596608175251" />
+    <state width="904" height="466" key="DebuggerActiveHint" timestamp="1596601077338">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="904" height="466" key="DebuggerActiveHint/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596601077338" />
+    <state width="1624" height="264" key="GridCell.Tab.0.bottom" timestamp="1596709888246">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1647" height="259" key="GridCell.Tab.0.bottom/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@-1920.23.1920.1057" timestamp="1596594718576" />
+    <state width="1624" height="264" key="GridCell.Tab.0.bottom/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596709888246" />
+    <state width="1624" height="264" key="GridCell.Tab.0.center" timestamp="1596709888245">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1647" height="259" key="GridCell.Tab.0.center/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@-1920.23.1920.1057" timestamp="1596594718574" />
+    <state width="1624" height="264" key="GridCell.Tab.0.center/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596709888245" />
+    <state width="1624" height="264" key="GridCell.Tab.0.left" timestamp="1596709888245">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1647" height="259" key="GridCell.Tab.0.left/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@-1920.23.1920.1057" timestamp="1596594718573" />
+    <state width="1624" height="264" key="GridCell.Tab.0.left/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596709888245" />
+    <state width="1624" height="264" key="GridCell.Tab.0.right" timestamp="1596709888246">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1647" height="259" key="GridCell.Tab.0.right/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@-1920.23.1920.1057" timestamp="1596594718575" />
+    <state width="1624" height="264" key="GridCell.Tab.0.right/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596709888246" />
+    <state width="1624" height="327" key="GridCell.Tab.1.bottom" timestamp="1596608654925">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1624" height="327" key="GridCell.Tab.1.bottom/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596608654925" />
+    <state width="1624" height="327" key="GridCell.Tab.1.center" timestamp="1596608654924">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1624" height="327" key="GridCell.Tab.1.center/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596608654924" />
+    <state width="1624" height="327" key="GridCell.Tab.1.left" timestamp="1596608654923">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1624" height="327" key="GridCell.Tab.1.left/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596608654923" />
+    <state width="1624" height="327" key="GridCell.Tab.1.right" timestamp="1596608654924">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="1624" height="327" key="GridCell.Tab.1.right/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596608654924" />
+    <state x="421" y="263" key="IDE.errors.dialog" timestamp="1596598926705">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state x="421" y="263" key="IDE.errors.dialog/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596598926705" />
+    <state width="833" height="490" key="XDebugger.FullValuePopup" timestamp="1596599446591">
+      <screen x="0" y="23" width="1920" height="980" />
+    </state>
+    <state width="833" height="490" key="XDebugger.FullValuePopup/-3840.23.1920.1057/-1920.23.1920.1057/0.23.1920.980@0.23.1920.980" timestamp="1596599446591" />
+  </component>
+</project>

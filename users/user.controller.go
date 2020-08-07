@@ -2,12 +2,11 @@ package users
 
 import (
 	"context"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-rest-api/db"
 	"go-rest-api/jwt"
+	"go-rest-api/types"
 	"go-rest-api/utils"
-	"net/http"
 )
 
 func Register(c *gin.Context) {
@@ -15,9 +14,10 @@ func Register(c *gin.Context) {
 	var u User
 	if err := c.Bind(&u); err != nil {
 		c.Header("Content-Type", "application/json")
-		c.JSON(http.StatusOK, gin.H{
-			"error": err.Error(),
+		utils.HttpResponBadRequest(c, types.JsonResponse{
+			"message": err.Error(),
 		})
+		return
 	}
 
 	u.Password, _ = utils.HashPassword(u.Password)
@@ -30,10 +30,11 @@ func Register(c *gin.Context) {
 		panic(err.Error())
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	utils.HttpResponseOk(c, types.JsonResponse{
 		"message": "register success",
-		"data":    result.InsertedID,
+		"userId": result.InsertedID,
 	})
+	return
 }
 
 func Login(c *gin.Context) {
@@ -41,18 +42,23 @@ func Login(c *gin.Context) {
 	var userFromClient User
 	if err := c.Bind(&userFromClient); err != nil {
 		c.Header("Content-Type", "application/json")
-		utils.HttpResponBadRequest(c, err.Error())
+		utils.HttpResponBadRequest(c, types.JsonResponse{
+			"message": err.Error(),
+		})
 		return
 	}
 
 	userFromDb := findByUsername(userFromClient.Username)
 	if isMatch := utils.CheckPassword(userFromClient.Password, userFromDb.Password); !isMatch {
-		utils.HttpResponBadRequest(c, "username or password is invalid")
+		utils.HttpResponBadRequest(c, types.JsonResponse{
+			"message": "username or password is incorrect",
+		})
 		return
 	}
 
 	token, _ := jwt.SignToken(userFromDb.Id)
-	fmt.Println(token)
-	utils.HttpResponseOk(c, struct{ token string }{token: token})
+	utils.HttpResponseOk(c, types.JsonResponse {
+		"token": token,
+	})
 	return
 }

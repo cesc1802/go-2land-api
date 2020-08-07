@@ -1,31 +1,25 @@
 package utils
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"go-rest-api/types"
 	"net/http"
 )
 
-type Response struct {
-	data interface{}
-}
-
-func HttpResponseOk( c *gin.Context, data interface{}) {
-
-	fmt.Println(data)
+func HttpResponseOk( c *gin.Context, response types.JsonResponse) {
 	c.JSON(http.StatusOK, gin.H {
-		"data": data,
+		"data": response,
 	})
 }
 
-func HttpResponBadRequest(c *gin.Context, data interface{}) {
+func HttpResponBadRequest(c *gin.Context, response types.JsonResponse) {
 	c.JSON(http.StatusBadRequest, gin.H{
-		"data": data,
+		"data": response,
 	})
 }
 
-func HttpResponseInternalServerError(c *gin.Context) {
+func HttpResponseInternalServerError(c *gin.Context, response types.JsonResponse) {
 	c.JSON(http.StatusInternalServerError, gin.H{
-		"data": "",
+		"data": response,
 	})
 }

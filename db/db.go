@@ -17,7 +17,7 @@ var (
 )
 
 func Init() {
-	uri := "mongodb://2land:2land1234@10.0.16.167:27017"
+	uri := "mongodb://2land:2land1234@10.0.16.192:27017"
 	var dbErr error
 	clientConn, dbErr = mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 

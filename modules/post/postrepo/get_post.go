@@ -11,7 +11,6 @@ type GetPostStorage interface {
 
 type getPostStorage struct {
 	store GetPostStorage
-
 }
 
 func NewGetPostStorage(store GetPostStorage) *getPostStorage {

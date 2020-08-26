@@ -18,15 +18,5 @@ func (p *postSQLStorage) GetAll(ctx context.Context) ([]postmodel.Post, error) {
 		return nil, errors.New("Cannot get all post")
 	}
 
-
-	//if err := db.Table(postmodel.Post{}.TableName()).Find(&posts).Error; err != nil {
-	//	db.Rollback()
-	//	return nil, nil
-	//}
-	//
-	//if err := db.Commit().Error; err != nil {
-	//	db.Rollback()
-	//	return nil, errors.New("cannot create new a post")
-	//}
 	return posts, nil
 }

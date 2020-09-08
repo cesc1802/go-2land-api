@@ -6,7 +6,7 @@ import (
 )
 
 type FindUserStorage interface {
-	FindUserByUsername(ctx context.Context, userName string) (*usermodel.User, error)
+	FindUserByUsername(ctx context.Context, user usermodel.User) (usermodel.User, error)
 }
 
 type findUserStorage struct {
@@ -19,6 +19,6 @@ func NewFindUserStorage(store FindUserStorage) *findUserStorage {
 	}
 }
 
-func (u *findUserStorage) FindUserByUsername(ctx context.Context, userName string) (*usermodel.User, error) {
-	return u.store.FindUserByUsername(ctx, userName)
+func (u *findUserStorage) FindUserByUsername(ctx context.Context, user usermodel.User) (usermodel.User, error) {
+	return u.store.FindUserByUsername(ctx, user)
 }

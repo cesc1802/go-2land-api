@@ -1,6 +1,8 @@
 package userstorage
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type userSQLStorage struct {
 	SQL *gorm.DB

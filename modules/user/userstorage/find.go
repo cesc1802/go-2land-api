@@ -3,17 +3,23 @@ package userstorage
 import (
 	"context"
 	"errors"
+	"github.com/jinzhu/gorm"
 	"go-rest-api/modules/user/usermodel"
 )
 
-func (u *userSQLStorage) FindUserByUsername(ctx context.Context, userName string) (*usermodel.User, error) {
+func (store *userSQLStorage) FindUserByUsername1(ctx context.Context, user usermodel.User) (usermodel.User, error) {
+	db := store.SQL.New().Begin()
 
-	var user usermodel.User
-	db := u.SQL.New().Begin()
+	var u usermodel.User
+	if err := db.Table(usermodel.User{}.TableName()).Find(&u).
+		Where("username = ? and password = ?", user.Username, user.Password).
+		Limit(1).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			//TODO: need to be handle not found here
 
-	if err := db.Table(usermodel.User{}.TableName()).Find(&user).Where("username = ?", userName).Limit(1).Error; err != nil {
-		return nil, errors.New("cannot find user")
+		}
+		return u, errors.New("cannot find user")
 	}
 
-	return &user, nil
+	return u, nil
 }

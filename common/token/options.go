@@ -5,12 +5,10 @@ import (
 )
 
 type Options struct {
-	// Store to persist the tokens
-	//Store store.Store
-	// PublicKey base64 encoded, used by JWT
-	PublicKey string
-	// PrivateKey base64 encoded, used by JWT
-	PrivateKey string
+	// PathToPublicKey base64 encoded, used by JWT
+	PathToPublicKey string
+	// PathToPrivateKey base64 encoded, used by JWT
+	PathToPrivateKey string
 }
 
 type Option func(o *Options)
@@ -22,17 +20,17 @@ type Option func(o *Options)
 //	}
 //}
 
-// WithPublicKey sets the JWT public key
-func WithPublicKey(key string) Option {
+// WithPathToPublicKey sets the JWT public key
+func WithPathToPublicKey(key string) Option {
 	return func(o *Options) {
-		o.PublicKey = key
+		o.PathToPublicKey = key
 	}
 }
 
-// WithPrivateKey sets the JWT private key
-func WithPrivateKey(key string) Option {
+// WithPathToPrivateKey sets the JWT private key
+func WithPathToPrivateKey(key string) Option {
 	return func(o *Options) {
-		o.PrivateKey = key
+		o.PathToPrivateKey = key
 	}
 }
 

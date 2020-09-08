@@ -1,20 +1,22 @@
 package jwt
 
 import (
-	"encoding/base64"
+	"fmt"
+	"go-rest-api/modules/user/usermodel"
+	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"go-rest-api/common/auth"
 	"go-rest-api/common/token"
 )
 
 // authClaims to be encoded in the JWT
 type authClaims struct {
-	Type     string            `json:"type"`
-	Scopes   []string          `json:"scopes"`
-	Metadata map[string]string `json:"metadata"`
+	//UserId string `json:"user_id"`
+	//RoleId string `json:"role_id"`
 
+	Payload token.JwtPayload `json:"payload"`
 	jwt.StandardClaims
 }
 
@@ -31,12 +33,14 @@ func NewTokenProvider(opts ...token.Option) token.Provider {
 }
 
 // Generate a new JWT
-func (j *JWT) Generate(acc *auth.Account, opts ...token.GenerateOption) (*token.Token, error) {
+func (j *JWT) Generate(user usermodel.User, opts ...token.GenerateOption) (*token.Token, error) {
 	// decode the private key
-	priv, err := base64.StdEncoding.DecodeString(j.opts.PrivateKey)
-	if err != nil {
-		return nil, err
+	pwd, _ := os.Getwd()
+	if j.opts.PathToPrivateKey == "" {
+		j.opts.PathToPrivateKey = "/keys/priv"
 	}
+	keyPath := pwd + j.opts.PathToPrivateKey
+	priv, err := ioutil.ReadFile(keyPath)
 
 	// parse the private key
 	key, err := jwt.ParseRSAPrivateKeyFromPEM(priv)
@@ -49,10 +53,15 @@ func (j *JWT) Generate(acc *auth.Account, opts ...token.GenerateOption) (*token.
 
 	// generate the JWT
 	expiry := time.Now().Add(options.Expiry)
-	t := jwt.NewWithClaims(jwt.SigningMethodRS256, authClaims{
-		acc.Type, acc.Scopes, acc.Metadata, jwt.StandardClaims{
-			Subject:   acc.ID,
-			Issuer:    acc.Issuer,
+
+	fmt.Println(expiry.String())
+	t := jwt.NewWithClaims(jwt.SigningMethodRS512, authClaims{
+		token.JwtPayload{
+			UserId: user.ID,
+			RoleId: user.RoleId,
+		},
+		jwt.StandardClaims{
+			Subject:   user.ID,
 			ExpiresAt: expiry.Unix(),
 		},
 	})
@@ -70,17 +79,20 @@ func (j *JWT) Generate(acc *auth.Account, opts ...token.GenerateOption) (*token.
 }
 
 // Inspect a JWT
-func (j *JWT) Inspect(t string) (*auth.Account, error) {
+func (j *JWT) Inspect(t string) (*token.JwtPayload, error) {
 	// decode the public key
-	pub, err := base64.StdEncoding.DecodeString(j.opts.PublicKey)
-	if err != nil {
-		return nil, err
+	if j.opts.PathToPublicKey == "" {
+		j.opts.PathToPublicKey = "/keys/pub"
 	}
+	pwd, _ := os.Getwd()
+	fullPath := pwd + j.opts.PathToPublicKey
+	pub, err := ioutil.ReadFile(fullPath)
 
 	// parse the public key
 	res, err := jwt.ParseWithClaims(t, &authClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return jwt.ParseRSAPublicKeyFromPEM(pub)
 	})
+
 	if err != nil {
 		return nil, token.ErrInvalidToken
 	}
@@ -95,13 +107,7 @@ func (j *JWT) Inspect(t string) (*auth.Account, error) {
 	}
 
 	// return the token
-	return &auth.Account{
-		ID:       claims.Subject,
-		Issuer:   claims.Issuer,
-		Type:     claims.Type,
-		Scopes:   claims.Scopes,
-		Metadata: claims.Metadata,
-	}, nil
+	return &claims.Payload, nil
 }
 
 // String returns JWT

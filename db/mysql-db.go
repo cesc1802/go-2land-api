@@ -12,7 +12,7 @@ type Connection struct {
 func New() *Connection {
 	var err error
 	var db *gorm.DB
-	db, err = gorm.Open("mysql", "root:2land@tcp(10.0.16.197:3306)/2land?charset=utf8mb4&parseTime=True&loc=Local")
+	db, err = gorm.Open("mysql", "root:2land@tcp(10.0.16.26:3306)/2land?charset=utf8mb4&parseTime=True&loc=Local")
 	//defer db.Close()
 	db.LogMode(true)
 
@@ -33,7 +33,7 @@ func New() *Connection {
 func (conn *Connection) MakeConnect() (*gorm.DB, error) {
 	var err error
 	var db *gorm.DB
-	db, err = gorm.Open("mysql", "root:2land@tcp(10.0.16.87:3306)/2land?charset=utf8mb4&parseTime=True&loc=Local")
+	db, err = gorm.Open("mysql", "root:2land@tcp(10.0.16.26:3306)/2land?charset=utf8mb4&parseTime=True&loc=Local")
 	//defer db.Close()
 
 	if err != nil {

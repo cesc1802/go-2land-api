@@ -2,7 +2,7 @@ package token
 
 import (
 	"errors"
-	"go-rest-api/common/auth"
+	"go-rest-api/modules/user/usermodel"
 	"time"
 )
 
@@ -15,10 +15,16 @@ var (
 	ErrInvalidToken = errors.New("invalid token provided")
 )
 
+type JwtPayload struct {
+	UserId string `json:"user_id"`
+	RoleId string `json:"role_id"`
+}
+
 // Provider generates and inspects tokens
 type Provider interface {
-	Generate(account *auth.Account, opts ...GenerateOption) (*Token, error)
-	Inspect(token string) (*auth.Account, error)
+	//Generate(userId, roleId string, opts ...GenerateOption) (*Token, error)
+	Generate(user usermodel.User, opts ...GenerateOption) (*Token, error)
+	Inspect(token string) (*JwtPayload, error)
 	String() string
 }
 

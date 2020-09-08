@@ -1,25 +1,57 @@
 package jwtmiddleware
 
 import (
-	"context"
 	"errors"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
+	"go-rest-api/common/token"
+	"go-rest-api/common/token/jwt"
+	"go-rest-api/middlewares/jwt/jwtrepo"
+	"go-rest-api/modules/user/userrepo"
+	"go-rest-api/modules/user/userstorage"
+	"net/http"
 	"strings"
 )
 
-type JWTMiddleware interface {
-	Inspect(ctx context.Context) gin.HandlerFunc
-}
-
 type jwtMiddleware struct {
-	jwt       JWTMiddleware
+	verifier  jwtrepo.Verifier
 	TokenType string
 }
 
-func New() *jwtMiddleware {
+func NewJwtMiddleware(db *gorm.DB) *jwtMiddleware {
+
+	uStorage := userstorage.NewUserSQLStorage(db)
+	uRepository := userrepo.NewFindUserById(uStorage)
+
 	return &jwtMiddleware{
-		TokenType: "Bearer ",
+		verifier:  jwtrepo.NewVerifier(uRepository),
+		TokenType: "Bearer",
+	}
+}
+
+func (j *jwtMiddleware) Verify() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var userInfo = new(token.JwtPayload)
+		var err error
+		tok, _ := j.jwtFromHeader(c, "Authorization")
+		tokenProvider := jwt.NewTokenProvider(token.WithPathToPublicKey("/keys/pub"))
+		userInfo, err = tokenProvider.Inspect(tok)
+
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		if ok := j.verifier.VerifyUser(c.Request.Context(), userInfo.UserId); !ok {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"error": "user is invalid",
+			})
+			return
+		}
+		c.Next()
 	}
 }
 
@@ -44,26 +76,4 @@ func (j *jwtMiddleware) jwtFromCookie(c *gin.Context, key string) (string, error
 		return "", errors.New("empty cookie")
 	}
 	return cookie, nil
-}
-
-func (j *jwtMiddleware) Inspect(ctx context.Context) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		token, _ := j.jwtFromHeader(c, "Authorization")
-		c.Next()
-	}
-	return j.jwt.Inspect(ctx)
-}
-
-func (jmw *jwtMiddleware) ParseTokenString(token string) (*jwt.Token, error) {
-	return jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
-		if jwt.GetSigningMethod(jwt.SigningMethodHS256) != t.Method {
-			return nil, errors.New("invalid signature algorithm")
-		}
-	})
-}
-
-func (j *jwtMiddleware) Generate(ctx context.Context) gin.HandlerFunc {
-	return func(c *gin.Context) {
-
-	}
 }
